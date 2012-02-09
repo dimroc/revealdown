@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require showdown
+//= require highlight
 //= require_tree .

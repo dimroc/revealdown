@@ -15,4 +15,5 @@
 //= require showdown
 //= require highlight
 //= require bootstrap
+//= require behavior
 //= require_tree .

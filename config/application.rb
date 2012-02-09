@@ -56,6 +56,15 @@ module Revealdown
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
 
+    config.generators do |g|
+      g.assets false # prevent generation of assets when using rails g
+      g.helper false # prevent generation of helpers and helper specs when using rails g
+      g.stylesheets false # prevent generation of stylesheets when using rails g
+      g.javascripts false
+      g.template_engine :haml
+      g.test_framework :rspec
+    end
+
     # Enable the asset pipeline
     config.assets.enabled = true
 

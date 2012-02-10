@@ -30,6 +30,8 @@ group :development, :test do
   gem 'ffaker'
   gem 'database_cleaner'
   gem 'fuubar'
+  gem 'jasmine', :git => "git://github.com/pivotal/jasmine-gem.git"
+  gem 'jslint_on_rails'
 
   gem 'wirble'
   gem 'hirb'

@@ -11,7 +11,7 @@
       .navbar-inner
         .container
           .brand Reveal Down
-    %section.flashes{data: {behavior: "flash"}}
+    %section.container-fluid.flashes{data: {behavior: "flash"}}
       - flash.each do |key, value|
         %div{class: ["flash", "alert-block", "alert", "#{key}"]}
           = value

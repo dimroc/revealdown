@@ -1,0 +1,7 @@
+body.home.index {
+  section.input {
+    textarea {
+      @include square(100%);
+    }
+  }
+}

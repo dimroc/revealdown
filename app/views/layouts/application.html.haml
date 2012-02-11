@@ -7,4 +7,9 @@
     = csrf_meta_tags
 
   %body{class: [controller.controller_name, controller.action_name]}
-    = yield
+    %nav.navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          .brand Reveal Down
+    %article.container-fluid
+      = yield

@@ -16,4 +16,13 @@
 @import "compass/utilities";
 
 @import "bootstrap-custom"; // Customize bootstrap variables for this site
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+// Pages
+@import "global";
+@import "home";
+
+// Include the rest of bootstrap at the bottom
 @import "bootstrap";
+@import "bootstrap-responsive";

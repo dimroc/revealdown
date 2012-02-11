@@ -11,5 +11,9 @@
       .navbar-inner
         .container
           .brand Reveal Down
+    %section.flashes
+      - flash.each do |key, value|
+        %div{class: ["flash", "alert-block", "alert", "#{key}"]}
+          = value
     %article.container-fluid
       = yield

@@ -9,6 +9,7 @@ gem 'pg'
 gem 'thin-rails'
 gem 'haml-rails'
 gem 'awesome_print'
+gem 'devise'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -5,7 +5,7 @@
 RevealDown = {};
 RevealDown.Behaviors = {};
 
-var loadBehavior = function() {
+RevealDown.loadBehaviors = function() {
   $("*[data-behavior]").each(function() {
     var behaviorName = $(this).attr('data-behavior');
     var behavior = RevealDown.Behaviors[behaviorName];
@@ -13,6 +13,6 @@ var loadBehavior = function() {
   });
 };
 
-$(function(){
-  loadBehavior();
+$(function() {
+  RevealDown.loadBehaviors();
 });

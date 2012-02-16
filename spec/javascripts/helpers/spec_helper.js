@@ -19,7 +19,7 @@ documentEach = function(func) {
 
 // Load fixture then run scripts as a result of application initialization.
 // Only run once per spec.
-fixtureEach = function(fixture) {
+fixtureAndDocumentReady = function(fixture) {
   documentEach(function() {
     loadFixture(fixture);
   });

@@ -10,7 +10,7 @@ RevealDown.Behaviors.showdown = function(context) {
 
     text = converter.makeHtml(text);
 
-    context.find(".output .raw pre code").text(text);
-    context.find(".output .rendered").html($(text));
+    context.find(".output.raw pre code").text(text);
+    context.find(".output.rendered").html($(text));
   });
 };

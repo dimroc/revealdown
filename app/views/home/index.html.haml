@@ -1,9 +1,8 @@
 .row-fluid{data: {behavior: "showdown"}}
   %section.input.span4
-    %textarea{name: "input"}
+    %textarea.vertical-fluid{name: "input"}
 
-  %section.output.span8
-    .rendered.span4
-    .raw.span4
-      %pre
-        %code
+  %section.output.raw.span4
+    %pre.vertical-fluid
+      %code
+  %section.output.rendered.span4

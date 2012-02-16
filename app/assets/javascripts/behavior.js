@@ -6,6 +6,10 @@ RevealDown = {};
 RevealDown.Behaviors = {};
 
 RevealDown.loadBehaviors = function() {
+  if(RevealDown.Behaviors.global) {
+    RevealDown.Behaviors.global($(document));
+  }
+
   $("*[data-behavior]").each(function() {
     var behaviorName = $(this).attr('data-behavior');
     var behavior = RevealDown.Behaviors[behaviorName];

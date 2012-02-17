@@ -1,5 +1,5 @@
 RevealDown.Behaviors.flash = function(context) {
-  $(".flash .close").click(function() {
+  $(context).find(".close").click(function() {
     $this = $(this);
     $this.parent(".flash").hide();
   });

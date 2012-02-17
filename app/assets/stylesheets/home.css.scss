@@ -4,4 +4,10 @@ body.home.index {
       @include square(100%);
     }
   }
+
+  section.output.rendered {
+    code {
+      display: block;
+    }
+  }
 }

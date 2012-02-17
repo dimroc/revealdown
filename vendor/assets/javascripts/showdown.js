@@ -61,6 +61,13 @@
 //
 
 
+// **************************************************
+// GitHub Flavored Markdown modifications by Tekkub
+// http://github.github.com/github-flavored-markdown/
+//
+// Modifications are tagged with "GFM"
+// **************************************************
+
 //
 // Showdown namespace
 //
@@ -147,9 +154,66 @@ this.makeHtml = function(text) {
 	// attacklab: Restore tildes
 	text = text.replace(/~T/g,"~");
 
+  // ** GFM **  Auto-link URLs and emails
+  text = text.replace(/https?\:\/\/[^"\s\<\>]*[^.,;'">\:\s\<\>\)\]\!]/g, function(wholeMatch,matchIndex){
+    var left = text.slice(0, matchIndex), right = text.slice(matchIndex)
+    if (left.match(/<[^>]+$/) && right.match(/^[^>]*>/)) {return wholeMatch}
+    href = wholeMatch.replace(/^http:\/\/github.com\//, "https://github.com/")
+    return "<a href='" + href + "'>" + wholeMatch + "</a>";
+  });
+  text = text.replace(/[a-z0-9_\-+=.]+@[a-z0-9\-]+(\.[a-z0-9-]+)+/ig, function(wholeMatch){return "<a href='mailto:" + wholeMatch + "'>" + wholeMatch + "</a>";});
+
+  // ** GFM ** Auto-link sha1 if GitHub.nameWithOwner is defined
+  text = text.replace(/[a-f0-9]{40}/ig, function(wholeMatch,matchIndex){
+    if (typeof(GitHub) == "undefined" || typeof(GitHub.nameWithOwner) == "undefined") {return wholeMatch;}
+    var left = text.slice(0, matchIndex), right = text.slice(matchIndex)
+    if (left.match(/@$/) || (left.match(/<[^>]+$/) && right.match(/^[^>]*>/))) {return wholeMatch;}
+    return "<a href='http://github.com/" + GitHub.nameWithOwner + "/commit/" + wholeMatch + "'>" + wholeMatch.substring(0,7) + "</a>";
+  });
+
+  // ** GFM ** Auto-link user@sha1 if GitHub.nameWithOwner is defined
+  text = text.replace(/([a-z0-9_\-+=.]+)@([a-f0-9]{40})/ig, function(wholeMatch,username,sha,matchIndex){
+    if (typeof(GitHub) == "undefined" || typeof(GitHub.nameWithOwner) == "undefined") {return wholeMatch;}
+    GitHub.repoName = GitHub.repoName || _GetRepoName()
+    var left = text.slice(0, matchIndex), right = text.slice(matchIndex)
+    if (left.match(/\/$/) || (left.match(/<[^>]+$/) && right.match(/^[^>]*>/))) {return wholeMatch;}
+    return "<a href='http://github.com/" + username + "/" + GitHub.repoName + "/commit/" + sha + "'>" + username + "@" + sha.substring(0,7) + "</a>";
+  });
+
+  // ** GFM ** Auto-link user/repo@sha1
+  text = text.replace(/([a-z0-9_\-+=.]+\/[a-z0-9_\-+=.]+)@([a-f0-9]{40})/ig, function(wholeMatch,repo,sha){
+    return "<a href='http://github.com/" + repo + "/commit/" + sha + "'>" + repo + "@" + sha.substring(0,7) + "</a>";
+  });
+
+  // ** GFM ** Auto-link #issue if GitHub.nameWithOwner is defined
+  text = text.replace(/#([0-9]+)/ig, function(wholeMatch,issue,matchIndex){
+    if (typeof(GitHub) == "undefined" || typeof(GitHub.nameWithOwner) == "undefined") {return wholeMatch;}
+    var left = text.slice(0, matchIndex), right = text.slice(matchIndex)
+    if (left == "" || left.match(/[a-z0-9_\-+=.]$/) || (left.match(/<[^>]+$/) && right.match(/^[^>]*>/))) {return wholeMatch;}
+    return "<a href='http://github.com/" + GitHub.nameWithOwner + "/issues/#issue/" + issue + "'>" + wholeMatch + "</a>";
+  });
+
+  // ** GFM ** Auto-link user#issue if GitHub.nameWithOwner is defined
+  text = text.replace(/([a-z0-9_\-+=.]+)#([0-9]+)/ig, function(wholeMatch,username,issue,matchIndex){
+    if (typeof(GitHub) == "undefined" || typeof(GitHub.nameWithOwner) == "undefined") {return wholeMatch;}
+    GitHub.repoName = GitHub.repoName || _GetRepoName()
+    var left = text.slice(0, matchIndex), right = text.slice(matchIndex)
+    if (left.match(/\/$/) || (left.match(/<[^>]+$/) && right.match(/^[^>]*>/))) {return wholeMatch;}
+    return "<a href='http://github.com/" + username + "/" + GitHub.repoName + "/issues/#issue/" + issue + "'>" + wholeMatch + "</a>";
+  });
+
+  // ** GFM ** Auto-link user/repo#issue
+  text = text.replace(/([a-z0-9_\-+=.]+\/[a-z0-9_\-+=.]+)#([0-9]+)/ig, function(wholeMatch,repo,issue){
+    return "<a href='http://github.com/" + repo + "/issues/#issue/" + issue + "'>" + wholeMatch + "</a>";
+  });
+
 	return text;
 }
 
+
+var _GetRepoName = function() {
+  return GitHub.nameWithOwner.match(/^.+\/(.+)$/)[1]
+}
 
 var _StripLinkDefinitions = function(text) {
 //
@@ -661,10 +725,10 @@ var _DoHeaders = function(text) {
 	//	--------
 	//
 	text = text.replace(/^(.+)[ \t]*\n=+[ \t]*\n+/gm,
-		function(wholeMatch,m1){return hashBlock('<h1 id="' + headerId(m1) + '">' + _RunSpanGamut(m1) + "</h1>");});
+		function(wholeMatch,m1){return hashBlock("<h1>" + _RunSpanGamut(m1) + "</h1>");});
 
 	text = text.replace(/^(.+)[ \t]*\n-+[ \t]*\n+/gm,
-		function(matchFound,m1){return hashBlock('<h2 id="' + headerId(m1) + '">' + _RunSpanGamut(m1) + "</h2>");});
+		function(matchFound,m1){return hashBlock("<h2>" + _RunSpanGamut(m1) + "</h2>");});
 
 	// atx-style headers:
 	//  # Header 1
@@ -688,12 +752,9 @@ var _DoHeaders = function(text) {
 	text = text.replace(/^(\#{1,6})[ \t]*(.+?)[ \t]*\#*\n+/gm,
 		function(wholeMatch,m1,m2) {
 			var h_level = m1.length;
-			return hashBlock("<h" + h_level + ' id="' + headerId(m2) + '">' + _RunSpanGamut(m2) + "</h" + h_level + ">");
+			return hashBlock("<h" + h_level + ">" + _RunSpanGamut(m2) + "</h" + h_level + ">");
 		});
 
-	function headerId(m) {
-		return m.replace(/[^\w]/g, '').toLowerCase();
-	}
 	return text;
 }
 
@@ -984,6 +1045,7 @@ var _DoItalicsAndBold = function(text) {
 	text = text.replace(/(\*\*|__)(?=\S)([^\r]*?\S[*_]*)\1/g,
 		"<strong>$2</strong>");
 
+	text = text.replace(/(\w)_(\w)/g, "$1~E95E$2") // ** GFM **  "~E95E" == escaped "_"
 	text = text.replace(/(\*|_)(?=\S)([^\r]*?\S)\1/g,
 		"<em>$2</em>");
 
@@ -1065,6 +1127,7 @@ var _FormParagraphs = function(text) {
 		}
 		else if (str.search(/\S/) >= 0) {
 			str = _RunSpanGamut(str);
+			str = str.replace(/\n/g,"<br />");  // ** GFM **
 			str = str.replace(/^([ \t]*)/g,"<p>");
 			str += "</p>"
 			grafsOut.push(str);
@@ -1297,6 +1360,3 @@ var escapeCharacters_callback = function(wholeMatch,m1) {
 }
 
 } // end of Showdown.converter
-
-// export
-if (typeof exports != 'undefined') exports.Showdown = Showdown;

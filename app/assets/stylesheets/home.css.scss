@@ -5,9 +5,18 @@ body.home.index {
     }
   }
 
-  section.output.rendered {
-    code {
-      display: block;
+  section.output {
+    &.raw {
+      pre {
+        overflow: auto;
+      }
+    }
+
+    &.rendered {
+      overflow: auto;
+      code {
+        display: block;
+      }
     }
   }
 }

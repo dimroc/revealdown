@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bililiteRange
 //= require jquery.sendkeys
+//= require ICanHaz
 //= require showdown
 //= require highlight
 //= require bootstrap

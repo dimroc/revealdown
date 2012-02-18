@@ -13,6 +13,7 @@ documentEach = function(func) {
     jasmine.Ajax.useMock();
 
     func();
+    ich.grabTemplates();
     RevealDown.loadBehaviors();
   });
 };
@@ -27,4 +28,5 @@ fixtureAndDocumentReady = function(fixture) {
 
 afterEach(function() {
   $("#jasmine_content").html('');
+  ich.clearAll();
 });

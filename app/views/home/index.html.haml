@@ -1,6 +1,9 @@
 .row-fluid{data: {behavior: "slide_tracker"}}
-  .slides
-    .add_slide.btn.btn-primary +
+  .slide-tracker
+    .slide-actions.btn-group
+      .remove_slide.btn.btn-danger -
+      .add_slide.btn.btn-primary +
+    %ul.slides.nav.nav-tabs
 
 .row-fluid{data: {behavior: "showdown"}}
   %section.input.span4
@@ -13,6 +16,7 @@
   %section.output.rendered.span4.vertical-fluid
 
 %script{id: "slide_entry", type: "text/html"}
-  .slide_entry.btn
-    %p {{ order }}
-    %p {{ caption }}
+  %li.slide_entry
+    %a
+      %span.slide_order {{ order }}
+      %span {{ caption }}

@@ -14,6 +14,10 @@
 //= require jquery_ujs
 //= require bililiteRange
 //= require jquery.sendkeys
+//= require json2
+//= require underscore
+//= require backbone
+//= require backbone.modelbinding
 //= require ICanHaz
 //= require showdown
 //= require highlight

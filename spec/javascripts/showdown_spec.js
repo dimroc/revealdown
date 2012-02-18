@@ -1,11 +1,11 @@
 describe("showdown integration", function() {
-  var $fixture = $("<div data-behavior='showdown'>" +
+  var fixture = "<div data-behavior='showdown'>" +
       "<section class='input'><textarea name='input'></textarea></section>" +
       "<section class='output rendered'></section>" +
       "<section class='output raw'><pre><code></code></pre></section>" +
-      "</div>");
+      "</div>";
 
-  fixtureAndDocumentReady($fixture);
+  fixtureAndDocumentReady(fixture);
 
   describe("when entering markdown", function() {
     var title = 'Generated Title';

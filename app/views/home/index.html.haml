@@ -1,3 +1,7 @@
+.row-fluid{data: {behavior: "slide_tracker"}}
+  .slides
+    .add_slide.btn.btn-primary +
+
 .row-fluid{data: {behavior: "showdown"}}
   %section.input.span4
     %textarea.vertical-fluid{name: "input"}
@@ -7,3 +11,8 @@
       %code.html
 
   %section.output.rendered.span4.vertical-fluid
+
+%script{id: "slide_entry", type: "text/html"}
+  .slide_entry.btn
+    %p {{ order }}
+    %p {{ caption }}

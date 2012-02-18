@@ -1,17 +1,17 @@
 describe("highlight js integration", function() {
-  var $fixture = $("<div>" +
+  var fixture = "<div>" +
       "<div class='input'><textarea></textarea></div>" +
       "<div class='output raw' data-behavior='highlight'>" +
       "<pre><code>\n" +
       "<h1>Header</h1><p>Should be colored</p>" +
       "</code></pre>" +
       "</div>" +
-      "</div>");
+      "</div>";
 
   documentEach(function() {
     spyOn(hljs, 'initHighlighting');
     spyOn(hljs, 'highlightBlock');
-    loadFixture($fixture);
+    loadFixture(fixture);
   });
 
   it("should highlight on load", function() {

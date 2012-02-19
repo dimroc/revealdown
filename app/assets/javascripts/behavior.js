@@ -2,8 +2,16 @@
 // if said ui element is present. Behavior pattern credit belongs to:
 // Adam Berlin: https://github.com/berlin-ab
 (function() {
-  RevealDown = {};
-  RevealDown.Behaviors = {};
+  RevealDown = {
+    Behaviors: {},
+    Models: {},
+    Views: {},
+    Collections: {},
+    init: function() {
+      RevealDown.loadBehaviors();
+      RevealDown.app = new RevealDown.Views.AppView({el: $("#revealdown")});
+    }
+  };
 
   RevealDown.loadBehaviors = function() {
     if(RevealDown.Behaviors.global) {
@@ -19,5 +27,5 @@
 })();
 
 $(function() {
-  RevealDown.loadBehaviors();
+  RevealDown.init();
 });

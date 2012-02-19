@@ -5,7 +5,9 @@ describe("showdown integration", function() {
       "<section class='output raw'><pre><code></code></pre></section>" +
       "</div>";
 
-  fixtureAndDocumentReady(fixture);
+  behaviorEach(function (){
+    loadFixture(fixture);
+  });
 
   describe("when entering markdown", function() {
     var title = 'Generated Title';

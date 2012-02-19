@@ -1,8 +1,8 @@
 describe("slide tracker", function() {
   var $container = null;
-  var htmlFixture = "<div data-behavior='slide_tracker'>" +
-      "<div class='slides'>" +
-      "</div>" +
+  var htmlFixture = "<div id='revealdown'><div class='slide-tracker'>" +
+      "<ul class='slides'>" +
+      "</ul>" +
       "<div class='add_slide'>+</div>" +
       "<div class='remove_slide'>+</div>" +
       "<script id='slide_entry' type='text/html'>" +
@@ -11,7 +11,7 @@ describe("slide tracker", function() {
         "<p>{{ caption }}</p>" +
         "</div>" +
       "</script>" +
-      "</div>";
+      "</div></div>";
 
   documentEach(function() {
     // Always reload and recreate the fixture via

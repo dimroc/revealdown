@@ -8,7 +8,7 @@ describe("highlight js integration", function() {
       "</div>" +
       "</div>";
 
-  documentEach(function() {
+  behaviorEach(function() {
     spyOn(hljs, 'initHighlighting');
     spyOn(hljs, 'highlightBlock');
     loadFixture(fixture);

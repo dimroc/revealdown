@@ -14,15 +14,18 @@ documentEach = function(func) {
 
     func();
     ich.grabTemplates();
-    RevealDown.loadBehaviors();
+    RevealDown.init();
   });
 };
 
-// Load fixture then run scripts as a result of application initialization.
-// Only run once per spec.
-fixtureAndDocumentReady = function(fixture) {
-  documentEach(function() {
-    loadFixture(fixture);
+behaviorEach = function(func) {
+  beforeEach(function() {
+    jasmine.Clock.useMock();
+    jasmine.Ajax.useMock();
+
+    func();
+    ich.grabTemplates();
+    RevealDown.loadBehaviors();
   });
 };
 

@@ -1,8 +1,11 @@
-describe("global functionality", function() {
+describe("global behaviors", function() {
   describe("vertical fluid containers", function() {
     var fixture = "<div class='vertical-fluid' style='position:absolute;top:0'>" +
         "Something</div>";
-    fixtureAndDocumentReady(fixture);
+
+    behaviorEach(function() {
+      loadFixture(fixture);
+    });
 
     it("should stretch to the bottom of the window", function() {
 

@@ -1,20 +1,25 @@
 (function() {
   RevealDown.stretchPadding = 20;
-  RevealDown.stretchToHeight = function($element) {
-    var windowHeight = $(window).height();
-    var offset = $element.offset();
-    var buffer = $element.outerHeight() - $element.height();
-
-    $element.height(windowHeight - offset.top - buffer - RevealDown.stretchPadding);
+  RevealDown.Behaviors.keepToHeight = function(context) {
+    context.find("*.vertical-fluid").each(function(){
+      var $this = $(this);
+      RevealDown.Behaviors.stretchToHeight($this);
+      $(window).resize(function(){
+        RevealDown.Behaviors.stretchToHeight($this);
+      });
+    });
   };
 
   RevealDown.Behaviors.global = function(context) {
-    $("*.vertical-fluid").each(function(){
-      var $this = $(this);
-      RevealDown.stretchToHeight($this);
-      $(window).resize(function(){
-        RevealDown.stretchToHeight($this);
-      });
-    });
+    RevealDown.Behaviors.keepToHeight(context);
+  };
+
+  RevealDown.Behaviors.stretchToHeight = function(context) {
+    var $context = $(context);
+    var windowHeight = $(window).height();
+    var offset = $context.offset();
+    var buffer = $context.outerHeight() - $context.height();
+
+    $context.height(windowHeight - offset.top - buffer - RevealDown.stretchPadding);
   };
 })();

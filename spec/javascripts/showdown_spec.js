@@ -5,7 +5,7 @@ describe("showdown integration", function() {
       "<section class='output raw'><pre><code></code></pre></section>" +
       "</div>";
 
-  behaviorEach(function (){
+  documentEach(function (){
     loadFixture(fixture);
   });
 

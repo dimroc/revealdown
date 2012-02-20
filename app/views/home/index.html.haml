@@ -5,18 +5,20 @@
       .add_slide.btn.btn-primary +
     %ul.slides.nav.nav-tabs
 
-.row-fluid{data: {behavior: "showdown"}}
+.slide.row-fluid{data: {behavior: "showdown"}}
+
+%script{id: "slide_marker_template", type: "text/html"}
+  %li.slide_marker
+    %a
+      %span.slide_order {{ order }}
+      %span {{ caption }}
+
+%script{id: "slide_template", type: "text/html"}
   %section.input.span4
-    %textarea.vertical-fluid{name: "input"}
+    %textarea.vertical-fluid{name: "input", data: {bind: "content"}}
 
   %section.output.raw.span4{data: {behavior: "highlight"}}
     %pre.vertical-fluid
       %code.html
 
   %section.output.rendered.span4.vertical-fluid
-
-%script{id: "slide_entry", type: "text/html"}
-  %li.slide_entry
-    %a
-      %span.slide_order {{ order }}
-      %span {{ caption }}

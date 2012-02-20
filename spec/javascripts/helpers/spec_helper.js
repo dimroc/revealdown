@@ -18,17 +18,6 @@ documentEach = function(func) {
   });
 };
 
-behaviorEach = function(func) {
-  beforeEach(function() {
-    jasmine.Clock.useMock();
-    jasmine.Ajax.useMock();
-
-    func();
-    ich.grabTemplates();
-    RevealDown.loadBehaviors();
-  });
-};
-
 afterEach(function() {
   $("#jasmine_content").html('');
   ich.clearAll();

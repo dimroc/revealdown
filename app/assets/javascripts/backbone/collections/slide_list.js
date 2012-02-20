@@ -1,6 +1,6 @@
 (function() {
   RevealDown.Collections = RevealDown.Collections || {};
-  RevealDown.Collections.Presentation = Backbone.Collection.extend({
+  RevealDown.Collections.SlideList = Backbone.Collection.extend({
     model: RevealDown.Models.Slide
   });
 })();

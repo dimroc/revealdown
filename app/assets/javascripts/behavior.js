@@ -1,6 +1,8 @@
 // Behavior pattern used to only load document.ready scripts
-// if said ui element is present. Behavior pattern credit belongs to:
+// if said ui element is present or passed within context.
+// Original behavior pattern credit belongs to:
 // Adam Berlin: https://github.com/berlin-ab
+
 (function() {
   RevealDown = {
     Behaviors: {},
@@ -9,16 +11,20 @@
     Collections: {},
     init: function() {
       RevealDown.loadBehaviors();
-      RevealDown.app = new RevealDown.Views.AppView({el: $("#revealdown")});
     }
   };
 
-  RevealDown.loadBehaviors = function() {
-    if(RevealDown.Behaviors.global) {
-      RevealDown.Behaviors.global($(document));
+  RevealDown.loadBehaviors = function(options) {
+    var context = $(document);
+    if(options && options.context) {
+      context = options.context;
     }
 
-    $("*[data-behavior]").each(function() {
+    if(RevealDown.Behaviors.global) {
+      RevealDown.Behaviors.global(context);
+    }
+
+    context.find("*[data-behavior]").andSelf().each(function() {
       var behaviorName = $(this).attr('data-behavior');
       var behavior = RevealDown.Behaviors[behaviorName];
       if(behavior) { behavior($(this)); }

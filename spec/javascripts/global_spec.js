@@ -3,12 +3,11 @@ describe("global behaviors", function() {
     var fixture = "<div class='vertical-fluid' style='position:absolute;top:0'>" +
         "Something</div>";
 
-    behaviorEach(function() {
+    documentEach(function() {
       loadFixture(fixture);
     });
 
     it("should stretch to the bottom of the window", function() {
-
       expect($(".vertical-fluid").height()).toEqual($(window).height() - RevealDown.stretchPadding);
     });
 
@@ -29,9 +28,9 @@ describe("global behaviors", function() {
 
     describe("after window resize", function() {
       it("should resize to the bottom", function() {
-        spyOn(RevealDown, 'stretchToHeight').andCallThrough();
+        spyOn(RevealDown.Behaviors, 'stretchToHeight').andCallThrough();
         $(window).trigger('resize');
-        expect(RevealDown.stretchToHeight).toHaveBeenCalled();
+        expect(RevealDown.Behaviors.stretchToHeight).toHaveBeenCalled();
       });
     });
   });

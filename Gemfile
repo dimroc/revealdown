@@ -37,4 +37,5 @@ group :development, :test do
 
   gem 'wirble'
   gem 'hirb'
+  gem 'ruby-debug19'
 end

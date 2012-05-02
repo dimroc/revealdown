@@ -6,11 +6,13 @@ require File.expand_path('../config/application', __FILE__)
 
 Revealdown::Application.load_tasks
 
-# Append jslint and jasmine:ci to the default task (rake spec)
-task default: :jslint
-task default: "jasmine:ci"
+if Rails.env.development?
+  # Append jslint and jasmine:ci to the default task (rake spec)
+  task default: :jslint
+  task default: "jasmine:ci"
 
-Rake::Task[:jasmine].overwrite do
-  Rake::Task[:jslint].invoke
-  Rake::Task["jasmine:server".to_sym].invoke
+  Rake::Task[:jasmine].overwrite do
+    Rake::Task[:jslint].invoke
+    Rake::Task["jasmine:server".to_sym].invoke
+  end
 end
